@@ -167,9 +167,7 @@ function om_pssp_upload_abstract_code_form($form, &$form_state)
 		'#type' => 'file',
 		'#title' => t('Upload an abstract of the project.') ,
 		//'#required' => TRUE,
-		'#description' => t('<span style="font-size:16px;">For a sample of the abstract <span style="font-size:20px;">&rarr;</span>
-			<a href="http://static.fossee.in/esim/manuals/Analysis_of_frequency_response_of_the_BJT_amplifier_using_eSim.pdf"> 
-			Click here</a></span>' . '<br />' . t('<span style="color:red;">Current File :</span> ' . $existing_uploaded_A_file->filename . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('om_pssp_abstract_upload_extensions', '') . '</span>'
+		'#description' => t(t('<span style="color:red;">Current File :</span> ' . $existing_uploaded_A_file->filename . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('om_pssp_abstract_upload_extensions', '') . '</span>'
 	)));
 	$existing_uploaded_S_file = default_value_for_uploaded_files("S", $proposal_data->id);
 	if (!$existing_uploaded_S_file)

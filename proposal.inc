@@ -261,7 +261,9 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 	$form['samplefile']['samplefilepath'] = array(
 		'#type' => 'file',
 		'#size' => 48,
-		'#description' => t('Upload filenames with allowed extensions only. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('resource_upload_extensions', '') . '</span>'
+		'#description' => t('<span style="font-size:16px;">For a sample of the abstract <span style="font-size:20px;">&rarr;</span>
+			<a href="https://static.fossee.in/om/internship-forms/05_PSS_Abstract%20Submission%20Form.pdf"> 
+			Click here</a></span>' . '<br />' . 'Upload filenames with allowed extensions only. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('resource_upload_extensions', '') . '</span>'
 	);
 	$form['reference'] = array(
 		'#type' => 'textfield',
