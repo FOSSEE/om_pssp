@@ -1,1 +1,1 @@
-# om-pssp
+This is a custom module for OpenModelica Power Systems Simualtion Project
