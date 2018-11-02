@@ -229,7 +229,7 @@ function om_pssp_menu()
 		'description' => 'Download resource file',
 		'page callback' => 'om_pssp_download_upload_file',
 		'access arguments' => array(
-			'download code'
+			'om pssp download code'
 		),
 		'type' => MENU_CALLBACK,
 		'file' => 'download.inc'
@@ -454,65 +454,7 @@ function om_pssp_permission()
 	);
 	// return array('om pssp create proposal', 'om pssp manage proposal', 'om pssp edit proposal', 'om pssp approve proposal', 'om pssp propose solution', 'om pssp approve code', 'om pssp bulk manage abstract', 'om pssp bulk delete code', 'om pssp upload code', 'om pssp download code', 'administer om pssp', 'om pssp generate lab');
 }
-/* AJAX CALLS */
-/*function om_pssp_ajax()
-{
-	$query_type = arg(2);
-	if ($query_type == 'chapter_title')
-	{
-		$chapter_number = arg(3);
-		$preference_id = arg(4);
-		//$chapter_q = db_query("SELECT * FROM {om_pssp_chapter} WHERE number = %d AND preference_id = %d LIMIT 1", $chapter_number, $preference_id);
-		$query = db_select('om_pssp_chapter');
-		$query->fields('om_pssp_chapter');
-		$query->condition('number', $chapter_number);
-		$query->condition('preference_id', $preference_id);
-		$query->range(0, 1);
-		$chapter_q = $query->execute();
-		if ($chapter_data = $chapter_q->fetchObject())
-		{
-			echo $chapter_data->name;
-			return;
-		} //$chapter_data = $chapter_q->fetchObject()
-	} //$query_type == 'chapter_title'
-	else if ($query_type == 'example_exists')
-	{
-		$chapter_number = arg(3);
-		$preference_id = arg(4);
-		$example_number = arg(5);
-		$chapter_id = 0;
-		$query = db_select('om_pssp_chapter');
-		$query->fields('om_pssp_chapter');
-		$query->condition('number', $chapter_number);
-		$query->condition('preference_id', $preference_id);
-		$query->range(0, 1);
-		$chapter_q = $query->execute();
-		if (!$chapter_data = $chapter_q->fetchObject())
-		{
-			echo '';
-			return;
-		} //!$chapter_data = $chapter_q->fetchObject()
-		else
-		{
-			$chapter_id = $chapter_data->id;
-		}
-		$query = db_select('om_pssp_example');
-		$query->fields('om_pssp_example');
-		$query->condition('chapter_id', $chapter_id);
-		$query->condition('number', $example_number);
-		$query->range(0, 1);
-		$example_q = $query->execute();
-		if ($example_data = $example_q->fetchObject())
-		{
-			if ($example_data->approval_status == 1)
-				echo 'Warning! Solution already approved. You cannot upload the same solution again.';
-			else
-				echo 'Warning! Solution already uploaded. Delete the solution and reupload it.';
-			return;
-		} //$example_data = $example_q->fetchObject()
-	} //$query_type == 'example_exists'
-	echo '';
-}*/
+
 /*************************** VALIDATION FUNCTIONS *****************************/
 function om_pssp_check_valid_filename($file_name)
 {
@@ -907,3 +849,4 @@ function _om_pssp_list_of_user_defined_compound($proposal_id)
 	}
 	return $data;
 }
+

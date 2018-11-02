@@ -47,7 +47,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		if ($proposal_data->approval_status == 0 || $proposal_data->approval_status == 1)
 		{
 			drupal_set_message(t('We have already received your proposal.'), 'status');
-			drupal_goto('');
+			drupal_goto('powersystems');
 			return;
 		} //$proposal_data->approval_status == 0 || $proposal_data->approval_status == 1
 	} //$proposal_data
@@ -84,6 +84,27 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 			'placeholder' => t('Enter your contact number')
 		),
 		'#maxlength' => 250
+	);
+	$form['gender'] = array(
+		'#type' => 'select',
+		'#title' => t('Gender'),
+		'#options' => array(
+			'Male' => 'Male',
+			'Female' => 'Female',
+			'Other' => 'Other'
+		),
+		'#required' => TRUE
+	);
+	$form['month_year_of_degree'] = array(
+		'#type' => 'date_popup',
+		'#title' => t('Month and year of award of degree'),
+		'#date_label_position' => '',
+		'#description' => '',
+		'#default_value' => '',
+		'#date_format' => 'M-Y',
+		'#date_increment' => 0,
+		'#date_year_range' => '1960: +22',
+		'#required' => TRUE
 	);
 	$form['contributor_email_id'] = array(
 		'#type' => 'textfield',
@@ -225,19 +246,30 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#type' => 'textarea',
 		'#title' => t('Simulation Title'),
 		'#size' => 80,
-		'#description' => t('Maximum character limit is 80'),
+		'#description' => t('Maximum character limit is 80, minimum character 10'),
 		'#required' => TRUE
 	);
 	$form['description'] = array(
 		'#type' => 'textarea',
 		'#title' => t('Description of Proposed Simulation'),
 		'#size' => 120,
-		'#description' => t('Minimum character limit is 60 and Maximum character limit is 120'),
+		'#description' => t('Maximum character limit is 120, minimum 60'),
 		'#required' => TRUE
 	);	
+	$form['reference'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Reference'),
+		'#size' => 250,
+		'#required' => TRUE,
+		'#description' => t('Example: Plain Text, DOI, IEEE format etc.'),
+		'#attributes' => array(
+			'placeholder' => 'The links to the documents or websites which are referenced while proposing this project.'
+		)
+
+	);
 	$form['version'] = array(
 		'#type' => 'select',
-		'#title' => t('Version'),
+		'#title' => t('OM Version'),
 		'#options' => _df_list_of_software_version(),
 		'#required' => TRUE
 	);
@@ -264,17 +296,6 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#description' => t('<span style="font-size:16px;">For a sample of the abstract <span style="font-size:20px;">&rarr;</span>
 			<a href="https://static.fossee.in/om/internship-forms/05_PSS_Abstract%20Submission%20Form.pdf"> 
 			Click here</a></span>' . '<br />' . 'Upload filenames with allowed extensions only. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('resource_upload_extensions', '') . '</span>'
-	);
-	$form['reference'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Reference'),
-		'#size' => 250,
-		'#required' => TRUE,
-		'#description' => t('Example: Plain Text, DOI, IEEE format etc.'),
-		'#attributes' => array(
-			'placeholder' => 'The links to the documents or websites which are referenced while proposing this project.'
-		)
-
 	);
 	$form['term_condition'] = array(
 		'#type' => 'checkboxes',
@@ -349,9 +370,9 @@ function om_pssp_proposal_form_validate($form, &$form_state)
 	$form_state['values']['project_title'] = trim($form_state['values']['project_title']);
 	if ($form_state['values']['project_title'] != '')
 	{
-		if (strlen($form_state['values']['project_title']) > 40)
+		if (strlen($form_state['values']['project_title']) > 80)
 		{
-			form_set_error('project_title', t('Maximum charater limit is 40 charaters only, please check the length of the project title'));
+			form_set_error('project_title', t('Maximum charater limit is 80 charaters only, please check the length of the project title'));
 		} //strlen($form_state['values']['project_title']) > 250
 		else if (strlen($form_state['values']['project_title']) < 10)
 		{
@@ -423,6 +444,7 @@ function om_pssp_proposal_form_submit($form, &$form_state)
 	$project_title = trim($v['project_title']);
 	$proposar_name = $v['name_title'] . ' ' . $v['contributor_name'];
 	$university = $v['university'];
+	$month_year_of_degree = $v['month_year_of_degree'];
 	$directory_name = _df_dir_name($project_title, $proposar_name);
 	$result = "INSERT INTO {om_pssp_proposal} 
     (
@@ -431,6 +453,8 @@ function om_pssp_proposal_form_submit($form, &$form_state)
     name_title, 
     contributor_name,
     contact_no,
+    gender,
+    month_year_of_degree,
     university,
     city, 
     pincode, 
@@ -457,6 +481,8 @@ function om_pssp_proposal_form_submit($form, &$form_state)
     :name_title, 
     :contributor_name, 
     :contact_no,
+    :gender,
+    :month_year_of_degree,
     :university, 
     :city, 
     :pincode, 
@@ -483,6 +509,8 @@ function om_pssp_proposal_form_submit($form, &$form_state)
 		":name_title" => $v['name_title'],
 		":contributor_name" => _df_sentence_case(trim($v['contributor_name'])),
 		":contact_no" => $v['contributor_contact_no'],
+		":gender" => $v['gender'],
+		":month_year_of_degree" => $month_year_of_degree,
 		":university" => _df_sentence_case($v['university']),
 		":city" => $v['city'],
 		":pincode" => $v['pincode'],
@@ -571,5 +599,5 @@ function om_pssp_proposal_form_submit($form, &$form_state)
 	if (!drupal_mail('om_pssp', 'om_pssp_proposal_received', $email_to, user_preferred_language($user), $params, $form, TRUE))
 		drupal_set_message('Error sending email message.', 'error');
 	drupal_set_message(t('We have received your  power systems simulation proposal. We will get back to you soon.'), 'status');
-	drupal_goto('');
+	drupal_goto('powersystems');
 }

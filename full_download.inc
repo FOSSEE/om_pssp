@@ -61,8 +61,8 @@ function om_pssp_download_full_project()
 		}
 	} //$zip_file_count > 0
 	else {
-		drupal_set_message("There are no circuit simulation project in this proposal to download", 'error');
-		drupal_goto('circuit-simulation-project/full-download/project');
+		drupal_set_message("There are no power system simulation project in this proposal to download", 'error');
+		drupal_goto('powersystems');
 	}
 }
 function om_pssp_download_completed_project()
@@ -106,7 +106,7 @@ function om_pssp_download_completed_project()
 			header('Content-Length: ' . filesize($zip_filename));
 			ob_end_flush();
 			ob_clean();
-			flush();
+			//flush();
 			readfile($zip_filename);
 			unlink($zip_filename);
 		} //$user->uid
@@ -119,13 +119,13 @@ function om_pssp_download_completed_project()
 			header('Pragma: no-cache');
 			ob_end_flush();
 			ob_clean();
-			flush();
+			//flush();
 			readfile($zip_filename);
 			unlink($zip_filename);
 		}
 	} //$zip_file_count > 0
 	else {
-		drupal_set_message("There are circuit simulation project in this proposal to download", 'error');
-		drupal_goto('circuit-simulation-project/full-download/project');
+		drupal_set_message("There are no power system simulation project in this proposal to download", 'error');
+		drupal_goto('powersystems');
 	}
 }

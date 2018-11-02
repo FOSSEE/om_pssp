@@ -25,8 +25,8 @@ function om_pssp_download_upload_file()
             header('Pragma: no-cache');
             readfile($root_path . $om_pssp_upload_file->samplefilepath);
 	        ob_end_flush();
-           ob_clean();
-           flush();
+           	ob_clean();
+           	flush();
 }
 function om_pssp_project_files() {
 	$proposal_id = arg(4);

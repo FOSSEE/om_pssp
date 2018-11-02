@@ -32,7 +32,7 @@ function om_pssp_completed_proposals_all()
 			$preference_rows[] = array(
 				$i,
 				l($row->project_title, "powersystems/pssp/om-pssp-run/" . $row->id),
-				l('Download', "powersystems/pssp/download/project-file/" . $row->id),
+				l('Download', "powersystems/pssp/download/resource-file/" . $row->id),
 				$row->contributor_name,
 				$row->university,
 				$approval_date

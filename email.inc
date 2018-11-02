@@ -36,7 +36,7 @@ function om_pssp_mail($key, &$message, $params)
 			}
 
 			$message['headers'] = $params['om_pssp_proposal_received']['headers'];
-			$message['subject'] = t('[!site_name][Power System Simulation Project] Your OM Power System Simulationg Project proposal has been received', array(
+			$message['subject'] = t('[!site_name][Power System Simulation Project] Your Power System Simulation Project proposal has been received', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -45,14 +45,14 @@ function om_pssp_mail($key, &$message, $params)
 				'body' => t('
 Dear !user_name,
 
-Thank you for submitting proposal for the DWSIM Flowsheeting Project. The details of your proposal are as below.
+Thank you for submitting proposal for the Power Systems Simulation Project. The details of your proposal are as below :
 
 Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Email: ' . $user_data->mail . '
 University/Institute: ' . $proposal_data->university . '
 City: ' . $proposal_data->city . '
 Project Title: ' . $proposal_data->project_title . '
-Name of compound for which process development is carried out: ' . $proposal_data->process_development_compound_name . '
+
 
 Your proposal is under review. You will be notified via email about the approval/disapproval within ten working days.
 
@@ -94,7 +94,7 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['om_pssp_proposal_disapproved']['headers'];
-			$message['subject'] = t('[!site_name][Flowsheeting Project] Your DWSIM Flowsheeting Project proposal has been disapproved', array(
+			$message['subject'] = t('[!site_name][Power System Simulation Project] Your Power System Simulation Project proposal has been disapproved', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -103,16 +103,15 @@ FOSSEE,IIT Bombay', array(
 				'body' => t('
 Dear !user_name,
 
-We regret to inform you that your DWSIM Flowsheeting Project proposal with following details have been disapproved.
+We regret to inform you that your Power Systems Simulation Project proposal, with following details, has been disapproved.
 
 Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Project Title: ' . $proposal_data->project_title . '
-Name of compound for which process development is carried out: ' . $proposal_data->process_development_compound_name . '
 Reason(s) / Feedback: ' . $proposal_data->dissapproval_reason . '
 
 Please note that any files that were uploaded along with the proposal form will be deleted from all our database(s).
 
-Thank you for participating in the DWSIM Flowsheeting Project. You are welcome to submit a new proposal.
+Thank you for participating in the Power Systems Simulation Project. You are welcome to submit a new proposal.
 
 
 Best Wishes,
@@ -152,7 +151,7 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['om_pssp_proposal_approved']['headers'];
-			$message['subject'] = t('[!site_name][Flowsheeting Project] Your DWSIM Flowsheeting Project proposal has been approved', array(
+			$message['subject'] = t('[!site_name][Power Simulation Simulation Project] Your Power Simulation Simulation Project proposal has been approved', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -161,13 +160,13 @@ FOSSEE,IIT Bombay', array(
 				'body' => t('
 Dear !user_name,
 
-Congratulations! Your proposal for DWSIM Flowsheeting Project with the following details is approved.
+Congratulations! Your proposal for Power Systems Simulation Project with the following details is approved.
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Project Title  : ' . $proposal_data->project_title . '
 Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
 
-Please ensure that ALL the guidelines for coding at https://dwsim.fossee.in/flowsheeting-project/coding-guidelines-flowsheeting are strictly followed. Refer https://dwsim.fossee.in/flowsheeting-project/flowsheeting-internship for the further procedure for submission of the project. Kindly ensure that the flowsheet and abstract are submitted within 1 month.
+Please ensure that ALL the guidelines for coding at https://om.fossee.in/powersystems/pssp/coding-guidelines are strictly followed. Refer https://om.fossee.in/powersystems/pssp/internship for the further procedure for submission of the project. Kindly ensure that the flowsheet and abstract are submitted within 1 month.
 
 You can upload your abstract using abstract submission interface.
 
