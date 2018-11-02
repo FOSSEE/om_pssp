@@ -104,7 +104,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#date_format' => 'M-Y',
 		'#date_increment' => 0,
 		'#date_year_range' => '1960: +22',
-		'#required' => TRUE
+		'#required' => FALSE
 	);
 	$form['contributor_email_id'] = array(
 		'#type' => 'textfield',
@@ -260,7 +260,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#type' => 'textfield',
 		'#title' => t('Reference'),
 		'#size' => 250,
-		'#required' => TRUE,
+		'#required' => FALSE,
 		'#description' => t('Example: Plain Text, DOI, IEEE format etc.'),
 		'#attributes' => array(
 			'placeholder' => 'The links to the documents or websites which are referenced while proposing this project.'
