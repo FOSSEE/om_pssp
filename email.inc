@@ -52,6 +52,7 @@ Email: ' . $user_data->mail . '
 University/Institute: ' . $proposal_data->university . '
 City: ' . $proposal_data->city . '
 Project Title: ' . $proposal_data->project_title . '
+Description of the simulation: ' . $proposal_data->description . '
 
 
 Your proposal is under review. You will be notified via email about the approval/disapproval within ten working days.
@@ -59,7 +60,7 @@ Your proposal is under review. You will be notified via email about the approval
 
 Best Wishes,
 
-!site_name Team,
+!site_name Power Systems Team,
 FOSSEE,IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -106,7 +107,13 @@ Dear !user_name,
 We regret to inform you that your Power Systems Simulation Project proposal, with following details, has been disapproved.
 
 Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
+Email: ' . $user_data->mail . '
+University/Institute: ' . $proposal_data->university . '
+City: ' . $proposal_data->city . '
+
 Project Title: ' . $proposal_data->project_title . '
+Description of the simulation: ' . $proposal_data->description . '
+
 Reason(s) / Feedback: ' . $proposal_data->dissapproval_reason . '
 
 Please note that any files that were uploaded along with the proposal form will be deleted from all our database(s).
@@ -116,7 +123,7 @@ Thank you for participating in the Power Systems Simulation Project. You are wel
 
 Best Wishes,
 
-!site_name Team,
+!site_name Power Systems Team,
 FOSSEE,IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -133,7 +140,7 @@ FOSSEE,IIT Bombay', array(
 			$query->range(0, 1);
 			$proposal_data = $query->execute()->fetchObject();
 			$user_data = user_load($params['om_pssp_proposal_approved']['user_id']);
-			$url = 'https://dwsim.fossee.in/flowsheeting-project/coding-guidelines-flowsheeting';
+			$url = 'https://om.fossee.in/powersystems/pssp/coding-guidelines';
 			if ($proposal_data->project_guide_name == "NULL" || $proposal_data->project_guide_name == "")
 			{
 				$project_guide_name = "Not Entered";
@@ -162,17 +169,21 @@ Dear !user_name,
 
 Congratulations! Your proposal for Power Systems Simulation Project with the following details is approved.
 
-Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
-Project Title  : ' . $proposal_data->project_title . '
-Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
+Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
+Email: ' . $user_data->mail . '
+University/Institute: ' . $proposal_data->university . '
+City: ' . $proposal_data->city . '
 
-Please ensure that ALL the guidelines for coding at https://om.fossee.in/powersystems/pssp/coding-guidelines are strictly followed. Refer https://om.fossee.in/powersystems/pssp/internship for the further procedure for submission of the project. Kindly ensure that the flowsheet and abstract are submitted within 1 month.
+Project Title: ' . $proposal_data->project_title . '
+Description of the simulation: ' . $proposal_data->description . '
 
-You can upload your abstract using abstract submission interface.
+
+Please ensure that ALL the guidelines for coding at https://om.fossee.in/powersystems/pssp/coding-guidelines are strictly followed. Refer https://om.fossee.in/powersystems/pssp/internship for the further procedure for submission of the project. Kindly ensure that the completed model and abstract are submitted within 1 month. 
+
 
 Best Wishes,
 
-!site_name Team,
+!site_name Power Systems Team,
 FOSSEE,IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -206,7 +217,7 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['om_pssp_proposal_completed']['headers'];
-			$message['subject'] = t('[!site_name][Flowsheeting Project] Your DWSIM Flowsheeting Project proposal has been completed', array(
+			$message['subject'] = t('[!site_name][Power System Simulation Project] Your OpenModelica Power System Simulation Project proposal has been completed', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -215,22 +226,22 @@ FOSSEE,IIT Bombay', array(
 				'body' => t('
 Dear !user_name,
 
-Your DWSIM flowsheet and abstract on the following process have been published successfully.
+Your simulation and abstract for Power Systems Simulation Project at FOSSEE on the following process have been published successfully.
+
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Project Title  : ' . $proposal_data->project_title . '
 
 Kindly access this link to download the same.
-https://dwsim.fossee.in/flowsheeting-project/completed-flowsheet
+https://om.fossee.in/powersystems/pssp/completed-pssp
 
-You can now download your e-certificate after logging into the DWSIM website: dwsim.fossee.in.  On the left-hand side panel, go to User Dashboard > Flowsheet Certificates > Download. In case of any difficulties, kindly let us know.
 
-Thank you for participating in the DWSIM Flowsheeting Project. You are welcome to propose a new flowsheet.
+Thank you for participating in the Power System Simulation Project. You are welcome to propose a new proposal.
 
 
 Best Wishes,
 
-!site_name Team,
+!site_name Power Systems Team,
 FOSSEE,IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -265,7 +276,7 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['om_pssp_proposal_deleted']['headers'];
-			$message['subject'] = t('[!site_name][Flowsheeting Project] Your DWSIM Flowsheeting Project proposal has been deleted', array(
+			$message['subject'] = t('[!site_name][Power System Simulation Project] Your OpenModelica Power System Simulation Project proposal has been deleted', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -274,32 +285,23 @@ FOSSEE,IIT Bombay', array(
 				'body' => t('
 Dear !user_name,
 
-Your DWSIM Flowsheeting Project proposal with the following details has been deleted :
+Your  Power Systems Simulation Project proposal with the following details has been deleted:
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Email : ' . $user_data->mail . '
-Month and Year of Award of Degree : ' . $proposal_data->month_year_of_degree . '
 University/Institute : ' . $proposal_data->university . '
 City : ' . $proposal_data->city . '
-State : ' . $proposal_data->state . '
-Country : ' . $proposal_data->country . '
-
-Project Guide  : ' . $project_guide_name . '
-Project Guide Email : ' . $project_guide_email_id . '
-
-DWSIM Version : ' . $proposal_data->version . '
 
 Project Title  : ' . $proposal_data->project_title . '
-
-Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
-
+Description of the simulation: ' . $proposal_data->description .'
 
 
-You can propose a new flowsheet project.
+
+You can propose a new Power Systems Simulation project.
 
 Best Wishes,
 
-!site_name Team,
+!site_name Power Systems Team,
 FOSSEE,IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name
@@ -318,7 +320,7 @@ FOSSEE,IIT Bombay', array(
 			$proposal_data = $query->execute()->fetchObject();
 			
 			$user_data = user_load($params['abstract_uploaded']['user_id']);
-			$message['subject'] = t('[!site_name][Flowsheeting Project] You have uploaded DWSIM flowsheet abstract', array(
+			$message['subject'] = t('[!site_name][Power System Simulation Project] You have uploaded OpenModelica model and abstract', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -328,154 +330,21 @@ FOSSEE,IIT Bombay', array(
 				'body' => t('
 Dear !user_name,
 
-You have successfully uploaded your DWSIM flowsheet and abstract with the following details.
+You have successfully uploaded your simulation and abstract for Power Systems Simulation Project with the following details.
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
+Email : ' . $user_data->mail . '
+University/Institute : ' . $proposal_data->university . '
+City : ' . $proposal_data->city . '
+
 Project Title  : ' . $proposal_data->project_title . '
-Name of compound for which process development is carried out  : ' . $proposal_data->process_development_compound_name . '
+Description of the simulation: ' . $proposal_data->description .'
 
-You shall be notified via email after the flowsheet and abstract are reviewed and approved / disapproved. This may take upto 30 working days.
-
-Best Wishes,
-
-!site_name Team,
-FOSSEE,IIT Bombay', array(
-					'!site_name' => variable_get('site_name', ''),
-					'!user_name' => $user_data->name
-				), array(
-					'language' => $language->language
-				))
-			);
-			break;
-		case 'solution_approved':
-			//$solution_q = db_query("SELECT * FROM {om_pssp_solution} WHERE id = %d LIMIT 1", $params['solution_approved']['solution_id']);
-			$query = db_select('om_pssp_solution');
-			$query->fields('om_pssp_solution');
-			$query->condition('id', $params['solution_approved']['solution_id']);
-			$query->range(0, 1);
-			$solution_q = $query->execute();
-			$solution_data = $solution_q->fetchObject();
-			$query = db_select('om_pssp_experiment');
-			$query->fields('om_pssp_experiment');
-			$query->condition('id', $solution_data->experiment_id);
-			$query->range(0, 1);
-			$experiment_q = $query->execute();
-			$experiment_data = $experiment_q->fetchObject();
-			$user_data = user_load($params['solution_approved']['user_id']);
-			$message['headers'] = $params['solution_approved']['headers'];
-			$message['subject'] = t('[!site_name] Your uploaded DWSIM flowsheet solution has been approved', array(
-				'!site_name' => variable_get('site_name', '')
-			), array(
-				'language' => $language->language
-			));
-			$message['body'] = array(
-				'body' => t('
-Dear !user_name,
-
-Your following solution has been approved:
-
-Experiment Title : ' . $experiment_data->title . '
-
-Solution number : ' . $solution_data->code_number . '
-Caption : ' . $solution_data->caption . '
-
-Please ensure that ALL the codes follow guidelines at https://dwsim.fossee.in/dwsim-flowsheet-project/dwsim-flowsheet-guidelines
+You shall be notified via email after the model and abstract are reviewed and approved / disapproved. This may take upto 30 working days.
 
 Best Wishes,
 
-!site_name Team,
-FOSSEE,IIT Bombay', array(
-					'!site_name' => variable_get('site_name', ''),
-					'!user_name' => $user_data->name
-				), array(
-					'language' => $language->language
-				))
-			);
-			break;
-		case 'solution_disapproved':
-			$user_data = user_load($params['solution_disapproved']['user_id']);
-			$message['headers'] = $params['solution_disapproved']['headers'];
-			$message['subject'] = t('[!site_name] Your uploaded DWSIM flowsheet solution has been disapproved', array(
-				'!site_name' => variable_get('site_name', '')
-			), array(
-				'language' => $language->language
-			));
-			$message['body'] = array(
-				'body' => t('
-Dear !user_name,
-
-Your following solution has been disapproved:
-
-Solution number : ' . $params['solution_disapproved']['solution_number'] . '
-Caption : ' . $params['solution_disapproved']['solution_caption'] . '
-
-Reason for dis-approval : ' . $params['solution_disapproved']['message'] . '
-
-
-Best Wishes,
-
-!site_name Team,
-FOSSEE,IIT Bombay', array(
-					'!site_name' => variable_get('site_name', ''),
-					'!user_name' => $user_data->name
-				), array(
-					'language' => $language->language
-				))
-			);
-			break;
-		case 'solution_deleted_user':
-			$user_data = user_load($params['solution_deleted_user']['user_id']);
-			$message['headers'] = $params['solution_deleted_user']['headers'];
-			$message['subject'] = t('[!site_name] User has deleted pending DWSIM flowsheet solution', array(
-				'!site_name' => variable_get('site_name', '')
-			), array(
-				'language' => $language->language
-			));
-			$message['body'] = array(
-				'body' => t('
-Dear !user_name,
-
-Your following pending solution has been deleted :
-
-Title of the Lab : ' . $params['solution_deleted_user']['lab_title'] . '
-Title of the Experiment : ' . $params['solution_deleted_user']['experiment_title'] . '
-
-Solution number : ' . $params['solution_deleted_user']['solution_number'] . '
-Caption : ' . $params['solution_deleted_user']['solution_caption'] . '
-
-
-Best Wishes,
-
-!site_name Team,
-FOSSEE,IIT Bombay', array(
-					'!site_name' => variable_get('site_name', ''),
-					'!user_name' => $user_data->name
-				), array(
-					'language' => $language->language
-				))
-			);
-			break;
-		case 'dependency_uploaded':
-			$user_data = user_load($params['dependency_uploaded']['user_id']);
-			$dependency_files = implode(',', $params['dependency_uploaded']['dependency_names']);
-			$message['headers'] = $params['dependency_uploaded']['headers'];
-			$message['subject'] = t('[!site_name] You have uploaded dependency file', array(
-				'!site_name' => variable_get('site_name', '')
-			), array(
-				'language' => $language->language
-			));
-			$message['body'] = array(
-				'body' => t('
-Dear !user_name,
-
-You have uploaded following dependency files :
-    ' . $dependency_files . '
-
-Please ensure that ALL the codes follow guidelines at https://dwsim.fossee.in/dwsim-flowsheet-project/dwsim-flowsheet-guidelines
-
-Best Wishes,
-
-!site_name Team,
+!site_name Power Systems Team,
 FOSSEE,IIT Bombay', array(
 					'!site_name' => variable_get('site_name', ''),
 					'!user_name' => $user_data->name

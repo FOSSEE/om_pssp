@@ -33,7 +33,7 @@ function om_pssp_abstract_bulk_approval_form($form, &$form_state)
 	);
 	$form['message'] = array(
 		'#type' => 'textarea',
-		'#title' => t('If Dis-Approved please specify reason for Dis-Approval'),
+		'#title' => t('Please specify the reason for marking resubmit/disapproval'),
 		'#prefix' => '<div id= "message_submit">',
 		'#states' => array(
 			'visible' => array(
@@ -45,7 +45,7 @@ function om_pssp_abstract_bulk_approval_form($form, &$form_state)
 				'or',
 				array(
 					':input[name="om_pssp_actions"]' => array(
-						'value' => 4
+						'value' => 2
 					)
 				)
 			)
@@ -121,6 +121,7 @@ function om_pssp_abstract_bulk_approval_form_submit($form, &$form_state)
 							':submitted_abstract_id' => $abstract_data->id
 						));
 					} //$abstract_data = $abstracts_q->fetchObject()
+					drupal_goto('powersystems/pssp/manage-proposal/all');
 					drupal_set_message(t('Approved power system simulation project.'), 'status');
 					// email 
 					$email_subject = t('[!site_name][power system simulation Project] Your uploaded power system simulation project have been approved', array(
@@ -131,13 +132,25 @@ function om_pssp_abstract_bulk_approval_form_submit($form, &$form_state)
 
 Dear !user_name,
 
-Your uploaded abstract for the power system simulation project has been approved:
+Congratulations!
+Your simulation and abstract for Power Systems Simulation Project at FOSSEE with the following details have been approved.
 
-Title of power system simulation project  : ' . $user_info->project_title . '
+Full Name: ' . $user_info->name_title . ' ' . $user_info->contributor_name . '
+Email : ' . $user_data->mail . '
+University/Institute : ' . $user_info->university . '
+City : ' . $user_info->city . '
+
+Project Title  : ' . $user_info->project_title . '
+Description of the simulation: ' . $user_info->description .'
+
+Kindly send us the internship forms as early as possible for processing your honorarium on time. In case you have already sent these forms, please share the the consignment number or tracking id with us.
+
+Note: It will take upto 30 days from the time we receive your forms, to process your honorarium.
+
 
 Best Wishes,
 
-!site_name Team,
+!site_name Power Systems Team,
 FOSSEE,IIT Bombay', array(
 							'!site_name' => variable_get('site_name', ''),
 							'!user_name' => $user_data->name
@@ -166,6 +179,12 @@ FOSSEE,IIT Bombay', array(
 				} //$form_state['values']['om_pssp_actions'] == 1
 				elseif ($form_state['values']['om_pssp_actions'] == 2)
 				{
+					if (strlen(trim($form_state['values']['message'])) <= 30)
+					{
+						form_set_error('message', t(''));
+						$msg = drupal_set_message("Please mention the reason for marking resubmit. Minimum 30 character required", 'error');
+						return $msg;
+					}
 					//pending review entire project 
 					$query = db_select('om_pssp_submitted_abstracts');
 					$query->fields('om_pssp_submitted_abstracts');
@@ -197,12 +216,14 @@ FOSSEE,IIT Bombay', array(
 
 Dear !user_name,
 
-Kindly resubmit the project files for the project : ' . $user_info->project_title . '.
- 
+Kindly resubmit the project files for the project: ' . $user_info->project_title . '.
+Description of the simulation: ' . $user_info->description . '
+
+Reason: ' . $form_state['values']['message'] . '
 
 Best Wishes,
 
-!site_name Team,
+!site_name Power Systems Team,
 FOSSEE,IIT Bombay', array(
 							'!site_name' => variable_get('site_name', ''),
 							'!user_name' => $user_data->name
@@ -252,13 +273,25 @@ FOSSEE,IIT Bombay', array(
 						0 => t('
 Dear !user_name,
 
-Your uploaded power system simulation project files for the power system simulation project Title : ' . $user_info->project_title . ' have been marked as dis-approved.
+We regret to inform you that your simulation and abstract for Power Systems Simulation Project at FOSSEE with the following details have been disapproved:
+
+Full Name: ' . $user_info->name_title . ' ' . $user_info->contributor_name . '
+Email : ' . $user_data->mail . '
+University/Institute : ' . $user_info->university . '
+City : ' . $user_info->city . '
+
+Project Title  : ' . $user_info->project_title . '
+Description of the simulation: ' . $user_info->description .'
 
 Reason for dis-approval: ' . $form_state['values']['message'] . '
 
+Kindly note that the incorrect files will be deleted from all our databases.
+
+Thank you for participating in the Power Systems Simulation Project. You are welcome to submit a new proposal.
+
 Best Wishes,
 
-!site_name Team,
+!site_name Power Systems Team,
 FOSSEE,IIT Bombay', array(
 						'!site_name' => variable_get('site_name', ''),
 						'!user_name' => $user_data->name
@@ -291,113 +324,6 @@ FOSSEE,IIT Bombay', array(
 					// email 
 					
 				} //$form_state['values']['om_pssp_actions'] == 3
-				/*elseif ($form_state['values']['om_pssp_actions'] == 4)
-				{
-					if (strlen(trim($form_state['values']['message'])) <= 30)
-					{
-						form_set_error('message', t(''));
-						$msg = drupal_set_message("Please mention the reason for disapproval/deletion. Minimum 30 character required", 'error');
-						return $msg;
-					} //strlen(trim($form_state['values']['message'])) <= 30
-					$query = db_select('om_pssp_abstract_experiment');
-					$query->fields('om_pssp_abstract_experiment');
-					$query->condition('proposal_id', $form_state['values']['lab']);
-					$query->orderBy('number', 'ASC');
-					$experiment_q = $query->execute();
-					$experiment_list = '';
-					while ($experiment_data = $experiment_q->fetchObject())
-					{
-						$experiment_list .= '<p>' . $experiment_data->number . ') ' . $experiment_data->title . '<br> Description :  ' . $experiment_data->description . '<br>';
-						$experiment_list .= ' ';
-						$experiment_list .= '</p>';
-					} //$experiment_data = $experiment_q->fetchObject()
-					if (!user_access('lab migration bulk delete code'))
-					{
-						$msg = drupal_set_message(t('You do not have permission to Bulk Delete Entire Lab Including Proposal.'), 'error');
-						return $msg;
-					} //!user_access('lab migration bulk delete code')
-					// check if dependency files are present 
-					$dep_q = db_query("SELECT * FROM {om_pssp_abstract_dependency_files} WHERE proposal_id = :proposal_id", array(
-						":proposal_id" => $form_state['values']['lab']
-					));
-					if ($dep_data = $dep_q->fetchObject())
-					{
-						$msg = drupal_set_message(t("Cannot delete lab since it has dependency files that can be used by others. First delete the dependency files before deleting the lab."), 'error');
-						return $msg ;
-					} //$dep_data = $dep_q->fetchObject()
-					if (om_pssp_abstract_delete_lab($form_state['values']['lab']))
-					{
-						drupal_set_message(t('Dis-Approved and Deleted Entire Lab solutions.'), 'status');
-						$query = db_select('om_pssp_abstract_experiment');
-						$query->fields('om_pssp_abstract_experiment');
-						$query->condition('proposal_id', $form_state['values']['lab']);
-						$experiment_q = $query->execute()->fetchObject();
-						$dir_path = $root_path . $experiment_q->directory_name;
-						if (is_dir($dir_path))
-						{
-							$res = rmdir($dir_path);
-							if (!$res)
-							{
-								$msg = drupal_set_message(t("Cannot delete Lab directory : " . $dir_path . ". Please contact administrator."), 'error');
-								return $msg;
-							} //!$res
-						} //is_dir($dir_path)
-						else
-						{
-							drupal_set_message(t("Lab directory not present : " . $dir_path . ". Skipping deleting lab directory."), 'status');
-						}
-						$proposal_q = db_query("SELECT * FROM {om_pssp_abstract_proposal} WHERE id = :id", array(
-							":id" => $form_state['values']['lab']
-						));
-						$proposal_data = $proposal_q->fetchObject();
-						$proposal_id = $proposal_data->id;
-						db_query("DELETE FROM {om_pssp_abstract_experiment} WHERE proposal_id = :proposal_id", array(
-							":proposal_id" => $proposal_id
-						));
-						db_query("DELETE FROM {om_pssp_abstract_proposal} WHERE id = :id", array(
-							":id" => $proposal_id
-						));
-						drupal_set_message(t('Deleted Lab Proposal.'), 'status');
-						//email 
-						$email_subject = t('[!site_name] Your uploaded Lab Migration solutions including the Lab proposal have been deleted', array(
-							'!site_name' => variable_get('site_name', '')
-						));
-						$email_body = array(
-							0 => t('
-
-Dear !user_name,
-
-We regret to inform you that all the uploaded Experiments of your Lab with following details have been deleted permanently.
-
-Title of Lab :' . $user_info->lab_title . '
-
-List of experiments : ' . $experiment_list . '
-
-Reason for dis-approval: ' . $form_state['values']['message'] . '
-
-Best Wishes,
-
-!site_name Team,
-FOSSEE,IIT Bombay', array(
-								'!site_name' => variable_get('site_name', ''),
-								'!user_name' => $user_data->name
-							))
-						);
-						// email 
-						//  $email_subject = t('Your uploaded Lab Migration solutions including the Lab proposal have been deleted');
-						$email_body = array(
-							0 => t('Your all the uploaded solutions including the Lab proposal have been deleted permanently.')
-						);
-					} //om_pssp_abstract_delete_lab($form_state['values']['lab'])
-					else
-					{
-						$msg = drupal_set_message(t('Error Dis-Approving and Deleting Entire Lab.'), 'error');
-					}
-				} //$form_state['values']['om_pssp_actions'] == 4
-				else
-				{
-					$msg = drupal_set_message(t('You do not have permission to bulk manage code.'), 'error');
-				}*/
 			} //user_access('om_pssp project bulk manage code')
 		return $msg;
 	} //$form_state['clicked_button']['#value'] == 'Submit'

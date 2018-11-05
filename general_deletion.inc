@@ -32,7 +32,7 @@ function om_pssp_abstract_delete_project($proposal_id)
 			drupal_set_message('Invalid power system simulation project abstract.', 'error');
 		}
 		db_delete('om_pssp_submitted_abstracts_file')->condition('proposal_id', $proposal_id)->execute();
-		//!dwsim_flowsheet_delete_abstract_file($abstract_data->id)
+		//!om_pssp_delete_abstract_file($abstract_data->id)
 	}
 	$res = rmdir($root_path . $proposal_data->directory_name . '/project_files');
 	$dir_path_udc = $root_path . $proposal_data->directory_name;
@@ -59,7 +59,7 @@ WHERE dfsa.id = :abstract_id", array(
 	$abstract_data = $abstract_q->fetchObject();
 	if (!$abstract_data)
 	{
-		drupal_set_message('Invalid flowsheet project abstract.', 'error');
+		drupal_set_message('Invalid power system simualation project abstract.', 'error');
 		return FALSE;
 	} //!$abstract_data
 	/* deleting solutions */
@@ -136,7 +136,7 @@ WHERE dfsa.id = :abstract_id", array(
 	$abstract_data = $abstract_q->fetchObject();
 	if (!$abstract_data)
 	{
-		drupal_set_message('Invalid flowsheet project abstract.', 'error');
+		drupal_set_message('Invalid power system simulation project abstract.', 'error');
 		return FALSE;
 	} //!$abstract_data
 	/* deleting abstract files 

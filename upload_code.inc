@@ -152,7 +152,7 @@ function om_pssp_upload_abstract_code_form($form, &$form_state)
 		'#title' => t('Other Modelica Libraries Used'),
 		'#options' => array(
 			'1' => 'Yes',
-			'0' => 'No'
+			'0' => 'No',
 		),
 		'#default_value' => $abstracts_q->other_libraries_used,
 		'#required' => TRUE
@@ -275,6 +275,13 @@ function om_pssp_upload_abstract_code_form_submit($form, &$form_state)
 {
 	global $user;
 	$v = $form_state['values'];
+	if($form_state['values']['other_libraries'] == 1)
+	{
+		$other_libraries_used = 1;
+	}
+	else{
+		$other_libraries_used = 0;
+	}
 	$root_path = om_pssp_path();
 	$proposal_data = om_pssp_get_proposal();
 	$proposal_id = $proposal_data->id;
@@ -299,7 +306,6 @@ function om_pssp_upload_abstract_code_form_submit($form, &$form_state)
 	if (!$query_s_result)
 	{
 		/* creating solution database entry */
-		if($v['other_libraries_used'] == 1){
 		$query = "INSERT INTO {om_pssp_submitted_abstracts} (
 	proposal_id,
 	approver_uid,
@@ -312,7 +318,7 @@ function om_pssp_upload_abstract_code_form_submit($form, &$form_state)
 			":proposal_id" => $proposal_id,
 			":approver_uid" => 0,
 			":abstract_approval_status" => 0,
-			":other_libraries_used" => 1,
+			":other_libraries_used" => $other_libraries_used,
 			":abstract_upload_date" => time(),
 			":abstract_approval_date" => 0,
 			":is_submitted" => 1
@@ -320,30 +326,6 @@ function om_pssp_upload_abstract_code_form_submit($form, &$form_state)
 		$submitted_abstract_id = db_query($query, $args, array(
 			'return' => Database::RETURN_INSERT_ID
 		));
-	}
-	else
-	{
-		$query = "INSERT INTO {om_pssp_submitted_abstracts} (
-	proposal_id,
-	approver_uid,
-	abstract_approval_status,
-	other_libraries_used,
-	abstract_upload_date,
-	abstract_approval_date,
-	is_submitted) VALUES (:proposal_id, :approver_uid, :abstract_approval_status, :other_libraries_used, :abstract_upload_date, :abstract_approval_date, :is_submitted)";
-		$args = array(
-			":proposal_id" => $proposal_id,
-			":approver_uid" => 0,
-			":abstract_approval_status" => 0,
-			":other_libraries_used" => 0,
-			":abstract_upload_date" => time(),
-			":abstract_approval_date" => 0,
-			":is_submitted" => 1
-		);
-		$submitted_abstract_id = db_query($query, $args, array(
-			'return' => Database::RETURN_INSERT_ID
-		));
-	}
 		
 		$query1 = "UPDATE {om_pssp_proposal} SET is_submitted = :is_submitted WHERE id = :id";
 		$args1 = array(
@@ -357,13 +339,13 @@ function om_pssp_upload_abstract_code_form_submit($form, &$form_state)
 	{
 		$query = "UPDATE {om_pssp_submitted_abstracts} SET 
 
-	
+	other_libraries_used = :other_libraries_used,
 	abstract_upload_date =:abstract_upload_date,
 	is_submitted= :is_submitted 
 	WHERE proposal_id = :proposal_id
 	";
 		$args = array(
-			
+			":other_libraries_used" => $other_libraries_used,
 			":abstract_upload_date" => time(),
 			":is_submitted" => 1,
 			":proposal_id" => $proposal_id
