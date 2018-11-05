@@ -221,6 +221,8 @@ Description of the simulation: ' . $user_info->description . '
 
 Reason: ' . $form_state['values']['message'] . '
 
+Looking forward for the re-submission from you with the above suggested changes.
+
 Best Wishes,
 
 !site_name Power Systems Team,
