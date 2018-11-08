@@ -2,7 +2,7 @@
 function om_pssp_run_form($form, &$form_state)
 {
 	$options_first = _list_of_om_pssp();
-	$url_om_pssp_id = (int) arg(4);
+	$url_om_pssp_id = (int) arg(3);
 	$om_pssp_data = _om_pssp_information($url_om_pssp_id);
 	if ($om_pssp_data == 'Not found') {
 		$url_om_pssp_id = '';
