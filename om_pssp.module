@@ -498,7 +498,7 @@ function om_pssp_get_proposal()
 	if (!$proposal_data)
 	{
 		drupal_set_message("You do not have any approved om pssp proposal. Please propose the Power System Simulation proposal", 'error');
-		drupal_goto('');
+		drupal_goto('powersystems');
 	} //!$proposal_data
 	switch ($proposal_data->approval_status)
 	{
