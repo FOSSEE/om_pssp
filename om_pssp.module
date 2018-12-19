@@ -308,8 +308,8 @@ function om_pssp_menu()
 	);*/
 	/* ADMIN SETTINGS */
 	$items['admin/settings/om-pssp'] = array(
-		'title' => 'om pssp Settings',
-		'description' => 'om pssp Settings',
+		'title' => 'OM PSSP Settings',
+		'description' => 'OM PSSP Settings',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array(
 			'om_pssp_settings_form'
@@ -552,58 +552,7 @@ function _df_sentence_case($string)
 	} //array( '-', '\'' ) as $delimiter
 	return $string;
 }
-/*function _df_list_of_om_compound()
-{
-	$om_compound = array();
-	$query = db_select('om_pssp_compounds_from_om');
-	$query->fields('om_pssp_compounds_from_om');
-	$query->orderBy('id', 'ASC');
-	$om_compound_list = $query->execute();
-	while ($om_compound_list_data = $om_compound_list->fetchObject())
-	{
-		$om_compound[$om_compound_list_data->compound] = $om_compound_list_data->compound;
-	} //$om_compound_list_data = $om_compound_list->fetchObject()
-	return $om_compound;
-}
-function _df_list_of_unit_operations()
-{
-	$om_unit_operations = array();
-	$query = db_select('om_pssp_unit_operations');
-	$query->fields('om_pssp_unit_operations');
-	$query->orderBy('id', 'ASC');
-	$om_unit_operations_list = $query->execute();
-	while ($om_unit_operations_list_data = $om_unit_operations_list->fetchObject())
-	{
-		$om_unit_operations[$om_unit_operations_list_data->unit_operations] = $om_unit_operations_list_data->unit_operations;
-	} //$om_unit_operations_list_data = $om_unit_operations_list->fetchObject()
-	return $om_unit_operations;
-}
-function _df_list_of_thermodynamic_packages()
-{
-	$om_thermodynamic_packages = array();
-	$query = db_select('om_pssp_thermodynamic_packages');
-	$query->fields('om_pssp_thermodynamic_packages');
-	$query->orderBy('thermodynamic_packages', 'ASC');
-	$om_thermodynamic_packages_list = $query->execute();
-	while ($om_thermodynamic_packages_list_data = $om_thermodynamic_packages_list->fetchObject())
-	{
-		$om_thermodynamic_packages[$om_thermodynamic_packages_list_data->thermodynamic_packages] = $om_thermodynamic_packages_list_data->thermodynamic_packages;
-	} //$om_thermodynamic_packages_list_data = $om_thermodynamic_packages_list->fetchObject()
-	return $om_thermodynamic_packages;
-}
-function _df_list_of_logical_block()
-{
-	$om_logical_block = array();
-	$query = db_select('om_pssp_logical_block');
-	$query->fields('om_pssp_logical_block');
-	$query->orderBy('id', 'ASC');
-	$om_logical_block_list = $query->execute();
-	while ($om_logical_block_list_data = $om_logical_block_list->fetchObject())
-	{
-		$om_logical_block[$om_logical_block_list_data->logical_block] = $om_logical_block_list_data->logical_block;
-	} //$om_logical_block_list_data = $om_logical_block_list->fetchObject()
-	return $om_logical_block;
-}*/
+
 function _df_list_of_states()
 {
 	$states = array(
