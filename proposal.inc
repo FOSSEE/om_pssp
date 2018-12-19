@@ -260,7 +260,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#type' => 'textfield',
 		'#title' => t('Reference'),
 		'#size' => 250,
-		'#required' => FALSE,
+		'#required' => TRUE,
 		'#description' => t('Example: Plain Text, DOI, IEEE format etc.'),
 		'#attributes' => array(
 			'placeholder' => 'The links to the documents or websites which are referenced while proposing this project.'
@@ -286,7 +286,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 	);*/
 	$form['samplefile'] = array(
 		'#type' => 'fieldset',
-		'#title' => t('Upload Abstract'),
+		'#title' => t('Upload Abstract<span style="color:red;">*</span>'),
 		'#collapsible' => FALSE,
 		'#collapsed' => FALSE
 	);
@@ -403,7 +403,7 @@ if (isset($_FILES['files']))
 	{
 		/* check if atleast one source or result file is uploaded */
 		if (!($_FILES['files']['name']['samplefilepath']))
-			form_set_error('samplefilepath', t('Please upload file with circuit diagram.'));
+			form_set_error('samplefilepath', t('Please upload the abstract file.'));
 		/* check for valid filename extensions */
 		foreach ($_FILES['files']['name'] as $file_form_name => $file_name)
 		{
@@ -520,7 +520,7 @@ function om_pssp_proposal_form_submit($form, &$form_state)
 		":project_guide_name" => _df_sentence_case($v['project_guide_name']),
 		":project_guide_email_id" => trim($v['project_guide_email_id']),
 		":project_guide_university" => trim($v['project_guide_university']),
-		":project_title" => _df_sentence_case($v['project_title']),
+		":project_title" => $v['project_title'],
 		":description" => _df_sentence_case($v['description']),
 		":directory_name" => $directory_name,
 		":approval_status" => 0,
