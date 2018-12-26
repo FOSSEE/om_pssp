@@ -11,12 +11,12 @@ function om_pssp_completed_proposals_all()
 	
 	if ($result->rowCount() == 0)
 	{
-		$output .= "Work has been completed for the following power system simulation. We welcome your contributions." ."<hr>";
+		$output .= "Work has been completed for the following Power System Simulation. We welcome your contributions." ."<hr>";
 
 	} //$result->rowCount() == 0
 	else
 	{
-		$output .= "Work has been completed for the following power system simulation. We welcome your contributions." . "<hr>";
+		$output .= "Work has been completed for the following Power System Simulations. We welcome your contributions." . "<hr>";
 		$preference_rows = array();
 		$i = 1;
 		while ($row = $result->fetchObject())
@@ -41,7 +41,7 @@ function om_pssp_completed_proposals_all()
 		} //$row = $result->fetchObject()
 		$preference_header = array(
 			'No',
-			'power system simulation Project',
+			'Power System Simulation Project',
 			'Abstract File',
 			'Contributor Name',
 			'Institute',
@@ -65,11 +65,11 @@ function om_pssp_progress_all()
 	$result = $query->execute();
 	if ($result->rowCount() == 0)
 	{
-		$page_content .= "Work is in progress for the following power system simulation under power system simulation Project<hr>";
+		$page_content .= "Work is in progress for the following Power System Simulation under Power System Simulation Project<hr>";
 	} //$result->rowCount() == 0
 	else
 	{
-		$page_content .= "Work is in progress for the following power system simulation under power system simulation Project<hr>";
+		$page_content .= "Work is in progress for the following Power System Simulation under Power System Simulation Project<hr>";
 		$preference_rows = array();
 		$i = 1;
 		while ($row = $result->fetchObject())
@@ -86,7 +86,7 @@ function om_pssp_progress_all()
 		} //$row = $result->fetchObject()
 		$preference_header = array(
 			'No',
-			'power system simulation Project',
+			'Power System Simulation Project',
 			'Contributor Name',
 			'Institute',
 			'Year'
