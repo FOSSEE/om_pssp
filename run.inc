@@ -19,7 +19,7 @@ function om_pssp_run_form($form, &$form_state)
 	$form = array();
 	$form['om_pssp'] = array(
 		'#type' => 'select',
-		'#title' => t('Title of the om_pssp'),
+		'#title' => t('Title of the OM PSSP'),
 		'#options' => _list_of_om_pssp(),
 		'#default_value' => $selected,
 		'#ajax' => array(
@@ -44,7 +44,7 @@ function om_pssp_run_form($form, &$form_state)
 		);
 		$form['selected_om_pssp'] = array(
 			'#type' => 'item',
-			'#markup' => '<div id="ajax_selected_om_pssp">' . l('Download Power system simulation', 'powersystems/pssp/full-download/project/' . $om_pssp_default_value) . '</div>'
+			'#markup' => '<div id="ajax_selected_om_pssp">' . l('Download Power System Simulation', 'powersystems/pssp/full-download/project/' . $om_pssp_default_value) . '</div>'
 		);
 	}
 	return $form;
@@ -58,7 +58,7 @@ function om_pssp_project_details_callback($form, $form_state)
 		$om_pssp_details = _om_pssp_information($om_pssp_default_value);
 		$provider = user_load($om_pssp_details->uid);
 		if ($om_pssp_details->uid > 0) {
-			$commands[] = ajax_command_html('#ajax_selected_om_pssp', l('Download Power system simulation', 'powersystems/pssp/full-download/project/' . $om_pssp_default_value));
+			$commands[] = ajax_command_html('#ajax_selected_om_pssp', l('Download Power System Simulation', 'powersystems/pssp/full-download/project/' . $om_pssp_default_value));
 		} //$om_pssp_details->uid > 0
 		else {
 			$commands[] = ajax_command_html('#ajax_selected_om_pssp', '');
@@ -143,7 +143,7 @@ function _om_pssp_details($om_pssp_default_value)
 		}else{
 		$reference = 'Not provided';
 		}
-		$form['om_pssp_details']['#markup'] = '<span style="color: rgb(128, 0, 0);"><strong>About the Power system simulation</strong></span></td><td style="width: 35%;"><br />' . '<ul>' . '<li><strong>Proposer Name:</strong> ' . $om_pssp_details->name_title . ' ' . $om_pssp_details->contributor_name . '</li>' . '<li><strong>Title of the Flowhseet:</strong> ' . l($om_pssp_details->project_title,'powersystems/pssp/full-download/project/' . $om_pssp_default_value) . '</li>' . '<li><strong>University:</strong> ' . $om_pssp_details->university . '</li>' . '<li>'.'<strong>Reference:</strong> ' . $reference .'</li>'.'</ul>';
+		$form['om_pssp_details']['#markup'] = '<span style="color: rgb(128, 0, 0);"><strong>About the Power System Simulation</strong></span></td><td style="width: 35%;"><br />' . '<ul>' . '<li><strong>Proposer Name:</strong> ' . $om_pssp_details->name_title . ' ' . $om_pssp_details->contributor_name . '</li>' . '<li><strong>Title of the Simulation:</strong> ' . l($om_pssp_details->project_title,'powersystems/pssp/full-download/project/' . $om_pssp_default_value) . '</li>' . '<li><strong>University:</strong> ' . $om_pssp_details->university . '</li>' . '<li>'.'<strong>Reference:</strong> ' . $reference .'</li>'.'</ul>';
 		$details = $form['om_pssp_details']['#markup'];
 		return $details;
 	} //$om_pssp_default_value != 0
