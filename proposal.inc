@@ -51,6 +51,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 			return;
 		} //$proposal_data->approval_status == 0 || $proposal_data->approval_status == 1
 	} //$proposal_data
+	$imp = t('<span style="color: red;">*This is a mandatory field</span>');
 	$form['#attributes'] = array(
 		'enctype' => "multipart/form-data"
 	);
@@ -148,7 +149,8 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 					'value' => 'Others'
 				)
 			)
-		)
+		),
+		'#description' => $imp,
 	);
 	$form['other_state'] = array(
 		'#type' => 'textfield',
@@ -163,7 +165,8 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 					'value' => 'Others'
 				)
 			)
-		)
+		),
+		'#description' => $imp,
 	);
 	$form['other_city'] = array(
 		'#type' => 'textfield',
@@ -178,7 +181,8 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 					'value' => 'Others'
 				)
 			)
-		)
+		),
+		'#description' => $imp,
 	);
 	$form['all_state'] = array(
 		'#type' => 'select',
@@ -192,6 +196,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 				)
 			)
 		),
+		'#description' => $imp
 	);
 	$form['city'] = array(
             '#type' => 'select',
@@ -205,6 +210,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
                     )
                 )
             ),
+            '#description' => $imp,
 	);
 	$form['pincode'] = array(
 		'#type' => 'textfield',
@@ -287,7 +293,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 	);*/
 	$form['samplefile'] = array(
 		'#type' => 'fieldset',
-		'#title' => t('Upload Abstract<span style="color:red;">*</span>'),
+		'#title' => t('Upload Abstract<span style="color:red;">&nbsp;*</span>'),
 		'#collapsible' => FALSE,
 		'#collapsed' => FALSE
 	);

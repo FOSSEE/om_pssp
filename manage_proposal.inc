@@ -708,7 +708,7 @@ function om_pssp_proposal_edit_form($form, &$form_state)
 		'#datepicker_options' => array(
 			'maxDate' => 0
 		),
-		'#required' => TRUE
+		'#required' => FALSE
 	);
 	$form['university'] = array(
 		'#type' => 'textfield',
