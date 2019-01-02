@@ -51,6 +51,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 			return;
 		} //$proposal_data->approval_status == 0 || $proposal_data->approval_status == 1
 	} //$proposal_data
+	$imp = t('<span style="color: red;">*This is a mandatory field</span>');
 	$form['#attributes'] = array(
 		'enctype' => "multipart/form-data"
 	);
@@ -148,7 +149,8 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 					'value' => 'Others'
 				)
 			)
-		)
+		),
+		'#description' => $imp,
 	);
 	$form['other_state'] = array(
 		'#type' => 'textfield',
@@ -163,7 +165,8 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 					'value' => 'Others'
 				)
 			)
-		)
+		),
+		'#description' => $imp,
 	);
 	$form['other_city'] = array(
 		'#type' => 'textfield',
@@ -178,7 +181,8 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 					'value' => 'Others'
 				)
 			)
-		)
+		),
+		'#description' => $imp,
 	);
 	$form['all_state'] = array(
 		'#type' => 'select',
@@ -191,19 +195,22 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 					'value' => 'India'
 				)
 			)
-		)
+		),
+		'#description' => $imp
 	);
 	$form['city'] = array(
-		'#type' => 'select',
-		'#title' => t('City'),
-		'#options' => _df_list_of_cities(),
-		'#states' => array(
-			'visible' => array(
-				':input[name="country"]' => array(
-					'value' => 'India'
-				)
-			)
-		)
+            '#type' => 'select',
+            '#title' => t('City'),
+            '#options' => _df_list_of_cities(),
+            '#validated' => TRUE,
+            '#states' => array(
+                'visible' => array(
+                    ':input[name="country"]' => array(
+                        'value' => 'India'
+                    )
+                )
+            ),
+            '#description' => $imp,
 	);
 	$form['pincode'] = array(
 		'#type' => 'textfield',
@@ -286,7 +293,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 	);*/
 	$form['samplefile'] = array(
 		'#type' => 'fieldset',
-		'#title' => t('Upload Abstract<span style="color:red;">*</span>'),
+		'#title' => t('Upload Abstract<span style="color:red;">&nbsp;*</span>'),
 		'#collapsible' => FALSE,
 		'#collapsed' => FALSE
 	);
@@ -350,17 +357,17 @@ function om_pssp_proposal_form_validate($form, &$form_state)
 	} //$form_state['values']['country'] == 'Others'
 	else
 	{
-		if ($form_state['values']['country'] == '')
+		if ($form_state['values']['country'] == '0')
 		{
 			form_set_error('country', t('Select country name'));
 			// $form_state['values']['country'] = $form_state['values']['other_country'];
 		} //$form_state['values']['country'] == ''
-		if ($form_state['values']['all_state'] == '')
+		if ($form_state['values']['all_state'] == '0')
 		{
 			form_set_error('all_state', t('Select state name'));
 			// $form_state['values']['country'] = $form_state['values']['other_country'];
 		} //$form_state['values']['all_state'] == ''
-		if ($form_state['values']['city'] == '')
+		if ($form_state['values']['city'] == '0')
 		{
 			form_set_error('city', t('Select city name'));
 			// $form_state['values']['country'] = $form_state['values']['other_country'];
@@ -601,3 +608,4 @@ function om_pssp_proposal_form_submit($form, &$form_state)
 	drupal_set_message(t('We have received your  power systems simulation proposal. We will get back to you soon.'), 'status');
 	drupal_goto('powersystems');
 }
+
