@@ -320,6 +320,18 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 }
 function om_pssp_proposal_form_validate($form, &$form_state)
 {
+	$project_title = $form_state['values']['project_title'];
+	$query = db_select('om_pssp_proposal');
+	$query->fields('om_pssp_proposal');
+	$query->condition('project_title', $project_title);
+	//$query->condition('id', $pref_id);
+	$result = $query->execute()->rowCount();
+	//var_dump($result);die;
+	if ($result >= 1)
+	{
+		form_set_error('project_title', t('Project title name already exists'));
+		return;
+	}
 	if ($form_state['values']['term_condition'] == '1')
 	{
 		form_set_error('term_condition', t('Please check the terms and conditions'));

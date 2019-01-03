@@ -26,9 +26,9 @@ function om_pssp_completed_proposals_all()
 			$query1->fields('om_pssp_submitted_abstracts_file');
 			$query1->condition('file_approval_status', 1);
 			$query1->condition('proposal_id', $proposal_id);
-			$esim_project_files = $query1->execute();
-			$esim_project_abstract = $esim_project_files->fetchObject();
-			$approval_date = date("Y", $row->approval_date);
+			$project_files = $query1->execute();
+			$project_abstract = $project_files->fetchObject();
+			$approval_date = date("Y", $row->actual_completion_date);
 			$preference_rows[] = array(
 				$i,
 				l($row->project_title, "powersystems/pssp/om-pssp-run/" . $row->id),
