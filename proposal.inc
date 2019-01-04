@@ -76,7 +76,7 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		),
 		'#maxlength' => 250,
 		'#required' => TRUE,
-		'#description' => t('Kindly enter the names in the following format: Name1, Name2 and Name3'),
+		'#description' => t('<span  style="color:red;">Kindly enter the names (maximum three) in the following format: Name1, Name2 and Name3</span>'),
 	);
 	$form['contributor_contact_no'] = array(
 		'#type' => 'textfield',
