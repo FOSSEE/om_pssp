@@ -828,6 +828,14 @@ else{
 		'#required' => TRUE,
 		'#default_value' => $proposal_data->project_title
 	);
+	$form['description'] = array(
+		'#type' => 'textarea',
+		'#title' => t('Description of the Project'),
+		'#size' => 250,
+		'#maxlength' => 250,
+		'#required' => TRUE,
+		'#default_value' => $proposal_data->description
+	);
 	$form['reference'] = array(
 		'#type' => 'textarea',
 		'#title' => t('Reference'),

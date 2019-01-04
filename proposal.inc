@@ -75,7 +75,8 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 			'placeholder' => t('Enter your full name.....')
 		),
 		'#maxlength' => 250,
-		'#required' => TRUE
+		'#required' => TRUE,
+		'#description' => t('<span  style="color:red;">Kindly enter the names (maximum three) in the following format: Name1, Name2 and Name3</span>'),
 	);
 	$form['contributor_contact_no'] = array(
 		'#type' => 'textfield',
@@ -259,8 +260,8 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 	$form['description'] = array(
 		'#type' => 'textarea',
 		'#title' => t('Description of Proposed Simulation'),
-		'#size' => 120,
-		'#description' => t('Maximum character limit is 120, minimum 60'),
+		'#size' => 250,
+		'#description' => t('Maximum character limit is 250, minimum 60'),
 		'#required' => TRUE
 	);	
 	$form['reference'] = array(
@@ -320,6 +321,21 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 }
 function om_pssp_proposal_form_validate($form, &$form_state)
 {
+	$project_title = $form_state['values']['project_title'];
+	/*$proposar_name = $form_state['values']['name_title'] . ' ' . $form_state['values']['contributor_name'];
+	$directory_name = _df_dir_name($project_title, $proposar_name);*/
+	//var_dump($directory_name);die;
+	$query = db_select('om_pssp_proposal');
+	$query->fields('om_pssp_proposal');
+	$query->condition('project_title', $project_title);
+	//$query->condition('id', $pref_id);
+	$result = $query->execute()->rowCount();
+	//var_dump($result);die;
+	if ($result >= 1)
+	{
+		form_set_error('project_title', t('Project title name already exists'));
+		return;
+	}
 	if ($form_state['values']['term_condition'] == '1')
 	{
 		form_set_error('term_condition', t('Please check the terms and conditions'));
@@ -393,9 +409,9 @@ function om_pssp_proposal_form_validate($form, &$form_state)
 	$form_state['values']['description'] = trim($form_state['values']['description']);
 	if ($form_state['values']['description'] != '')
 	{
-		if (strlen($form_state['values']['description']) > 120)
+		if (strlen($form_state['values']['description']) > 250)
 		{
-			form_set_error('description', t('Maximum charater limit is 120 charaters only, please check the length of the description'));
+			form_set_error('description', t('Maximum charater limit is 250 charaters only, please check the length of the description'));
 		} //strlen($form_state['values']['project_title']) > 250
 		else if (strlen($form_state['values']['description']) < 60)
 		{
