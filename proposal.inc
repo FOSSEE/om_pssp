@@ -328,7 +328,7 @@ function om_pssp_proposal_form_validate($form, &$form_state)
 	$query = db_select('om_pssp_proposal');
 	$query->fields('om_pssp_proposal');
 	$query->condition('project_title', $project_title);
-	//$query->condition('id', $pref_id);
+	$query->condition(db_or()->condition('approval_status',1)->condition('approval_status',3)); 
 	$result = $query->execute()->rowCount();
 	//var_dump($result);die;
 	if ($result >= 1)
