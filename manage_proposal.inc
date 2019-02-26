@@ -922,6 +922,8 @@ function om_pssp_proposal_edit_form_submit($form, &$form_state)
 	} //$form_state['values']['delete_proposal'] == 1
 	/* update proposal */
 	$v = $form_state['values'];
+	$str = substr($proposal_data->samplefilepath,strrpos($proposal_data->samplefilepath, '/'));
+	$resource_file =ltrim($str, '/');
 	$project_title = $v['project_title'];
 	$proposar_name = $v['name_title'] . ' ' . $v['contributor_name'];
 	$university = $v['university'];
@@ -934,6 +936,7 @@ function om_pssp_proposal_edit_form_submit($form, &$form_state)
 	{
 		return;
 	}
+	$samplefilepath = $directory_name . '/' . $resource_file;
 	$query = "UPDATE om_pssp_proposal SET 
 				name_title=:name_title,
 				contributor_name=:contributor_name,
@@ -943,7 +946,8 @@ function om_pssp_proposal_edit_form_submit($form, &$form_state)
 				state=:state,
 				project_title=:project_title,
 				reference=:reference,
-				directory_name=:directory_name 
+				directory_name=:directory_name,
+				samplefilepath=:samplefilepath
 				WHERE id=:proposal_id";
 	$args = array(
 		':name_title' => $v['name_title'],
@@ -955,6 +959,7 @@ function om_pssp_proposal_edit_form_submit($form, &$form_state)
 		':project_title' => $project_title,
 		':reference' => $v['reference'],
 		':directory_name' => $directory_name,
+		':samplefilepath' => $samplefilepath,
 		':proposal_id' => $proposal_id
 	);
 	$result = db_query($query, $args);
