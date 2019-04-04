@@ -5,7 +5,7 @@ function om_pssp_completed_proposals_all()
 	$query = db_select('om_pssp_proposal');
 	$query->fields('om_pssp_proposal');
 	$query->condition('approval_status', 3);
-	$query->orderBy('actual_completion_date', 'DESC');
+	$query->orderBy('actual_completion_date', 'ASC');
 	//$query->condition('is_completed', 1);
 	$result = $query->execute();
 	
