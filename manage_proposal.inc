@@ -945,6 +945,7 @@ function om_pssp_proposal_edit_form_submit($form, &$form_state)
 				pincode=:pincode,
 				state=:state,
 				project_title=:project_title,
+				description=:description,
 				reference=:reference,
 				directory_name=:directory_name,
 				samplefilepath=:samplefilepath
@@ -957,6 +958,7 @@ function om_pssp_proposal_edit_form_submit($form, &$form_state)
 		':pincode' => $v['pincode'],
 		':state' => $v['all_state'],
 		':project_title' => $project_title,
+		':description' => $v['description'],
 		':reference' => $v['reference'],
 		':directory_name' => $directory_name,
 		':samplefilepath' => $samplefilepath,
