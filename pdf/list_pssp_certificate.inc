@@ -10,7 +10,7 @@ function _list_pssp_certificates()
 	if ($exist_id){
 	if ($exist_id->id) {
 		if ($exist_id->id < 1) {
-			drupal_set_message('<strong>You need to propose a <a href="https://om.fossee.in/flowsheeting-project/proposal">Power System Simulation Proposal</a></strong> or if you have already proposed then your Flowsheet is under reviewing process', 'status');
+			drupal_set_message('<strong>You need to propose a <a href="https://om.fossee.in/powersystems/pssp/proposal">Power System Simulation Proposal</a></strong> or if you have already proposed then your proposal is under reviewing process', 'status');
 			return '';
 		} //$exist_id->id < 3
 		else {
@@ -49,7 +49,7 @@ function _list_pssp_certificates()
 		}
 	} //$exist_id->id
 	else {
-		drupal_set_message('<strong>You need to propose a <a href="https://om.fossee.in/powersystems/pssp/proposal">OpenModelica Power System Simulation Proposal</a></strong> or if you have already proposed then your Flowsheet is under reviewing process', 'status');
+		drupal_set_message('<strong>You need to propose a <a href="https://om.fossee.in/powersystems/pssp/proposal">OpenModelica Power System Simulation Proposal</a></strong> or if you have already proposed then your proposal is under reviewing process', 'status');
 		$page_content = "<span style='color:red;'> No certificate available </span>";
 		return $page_content;
 	}
