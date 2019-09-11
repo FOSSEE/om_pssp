@@ -500,6 +500,25 @@ function om_pssp_proposal_status_form($form, &$form_state)
 		'#markup' => $proposal_data->project_title,
 		'#title' => t('Title of the Power systems simulation Project')
 	);
+	if (($proposal_data->samplefilepath != "") && ($proposal_data->samplefilepath != 'NULL'))
+	{
+		$str = substr($proposal_data->samplefilepath,strrpos($proposal_data->samplefilepath, '/'));
+		$resource_file =ltrim($str, '/');
+		
+		$form['samplefilepath'] = array(
+			'#type' => 'item',
+			'#title' => t('Abstract file '),
+			'#markup' => l($resource_file, 'powersystems/pssp/download/resource-file/' . $proposal_id) . ""
+		);
+	} //$proposal_data->user_defined_compound_filepath != ""
+	else
+	{
+		$form['samplefilepath'] = array(
+			'#type' => 'item',
+			'#title' => t('Abstract file '),
+			'#markup' => "Not uploaded<br><br>"
+		);
+	}
 	/************************** reference link filter *******************/
 	$url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
 	$reference = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $proposal_data->reference);
