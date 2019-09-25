@@ -70,13 +70,13 @@ function om_pssp_proposal_form($form, &$form_state, $no_js_use = FALSE)
 	$form['contributor_name'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Name of the contributor'),
-		'#size' => 250,
+		'#size' => 350,
 		'#attributes' => array(
 			'placeholder' => t('Enter your full name.....')
 		),
-		'#maxlength' => 250,
+		'#maxlength' => 350,
 		'#required' => TRUE,
-		'#description' => t('<span  style="color:red;">Kindly enter the names (maximum three) in the following format: Name1, Name2 and Name3</span>'),
+		'#description' => t('<span  style="color:red;">Kindly enter the names (maximum four) in the following format: Name1, Name2, Name3 and Name4</span>'),
 	);
 	$form['contributor_contact_no'] = array(
 		'#type' => 'textfield',
