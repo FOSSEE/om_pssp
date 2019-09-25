@@ -705,8 +705,8 @@ function om_pssp_proposal_edit_form($form, &$form_state)
 	$form['contributor_name'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Name of the Proposer'),
-		'#size' => 30,
-		'#maxlength' => 50,
+		'#size' => 350,
+		'#maxlength' => 350,
 		'#required' => TRUE,
 		'#default_value' => $proposal_data->contributor_name
 	);
