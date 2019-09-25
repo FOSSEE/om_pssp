@@ -146,48 +146,6 @@ function om_pssp_menu()
 		'weight' => 2,
 		'file' => 'abstract_bulk_approval.inc'
 	);
-	/*$items['powersystems/pssp/code-approval/bulk'] = array(
-		'title' => 'Bulk Manage',
-		'description' => 'Bulk Mangage',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array(
-			'om_pssp_bulk_approval_form'
-		),
-		'access arguments' => array(
-			'om pssp bulk manage abstract'
-		),
-		'type' => MENU_LOCAL_TASK,
-		'weight' => 2,
-		'file' => 'bulk_approval.inc'
-	);
-	$items['powersystems/pssp/code-approval/upload'] = array(
-		'title' => 'Upload Code',
-		'description' => 'Admin Upload',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array(
-			'om_pssp_bulk_upload_code_form'
-		),
-		'access arguments' => array(
-			'om pssp bulk manage abstract'
-		),
-		'type' => MENU_CALLBACK,
-		'weight' => 4,
-		'file' => 'bulk_upload_code.inc'
-	);*/
-	/*$items['powersystems/pssp/code-approval/notes'] = array(
-		'title' => 'Notes for Reviewers',
-		'description' => 'Notes for Reviewers',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array(
-			'om_pssp_lab_notes_form'
-		),
-		'access arguments' => array(
-			'om pssp bulk manage abstract'
-		),
-		'type' => MENU_CALLBACK,
-		'weight' => 4,
-		'file' => 'notes.inc'
-	);*/
 	/* CODE UPLOAD */
 	$items['powersystems/pssp/abstract-code'] = array(
 		'title' => 'Abstract and Power System Simulation Submission',
@@ -213,16 +171,6 @@ function om_pssp_menu()
 		'file' => 'upload_code.inc',
 		'weight' => 2
 	);
-	/*$items['powersystems/pssp/abstract-code/delete'] = array(
-		'title' => 'Delete Solution',
-		'description' => 'Delete Solution',
-		'page callback' => 'om_pssp_upload_code_delete',
-		'access arguments' => array(
-			'om pssp upload code'
-		),
-		'type' => MENU_CALLBACK,
-		'file' => 'upload_code_delete.inc'
-	);*/
 	/* CODE DOWNLOADS */
 	$items['powersystems/pssp/download/resource-file'] = array(
 		'title' => 'Download resource file',
@@ -285,27 +233,6 @@ function om_pssp_menu()
 		'type' => MENU_NORMAL_ITEM,
 		'file' => 'run.inc'
 	);
-	/* LATEX SCRIPT */
-	/*$items['powersystems/pssp/generate-lab'] = array(
-		'title' => 'Generate Lab',
-		'description' => 'Generate Lab From Latex Script',
-		'page callback' => 'om_pssp_download_lab_pdf',
-		'access arguments' => array(
-			'om pssp generate lab'
-		),
-		'type' => MENU_CALLBACK,
-		'file' => 'latex.inc'
-	);
-	$items['powersystems/pssp/delete-lab'] = array(
-		'title' => 'Delete Lab PDF',
-		'description' => 'Delete Lab PDF',
-		'page callback' => 'om_pssp_delete_lab_pdf',
-		'access arguments' => array(
-			'om pssp approve code'
-		),
-		'type' => MENU_CALLBACK,
-		'file' => 'latex.inc'
-	);*/
 	/* ADMIN SETTINGS */
 	$items['admin/settings/om-pssp'] = array(
 		'title' => 'OM PSSP Settings',
@@ -321,15 +248,6 @@ function om_pssp_menu()
 		'file' => 'settings.inc'
 	);
 	/* AJAX REQUEST */
-	/*$items["lab-bulk-manage-exp/ajax"] = array(
-		"title" => "Ajax callbacks",
-		"page callback" => "lab_bulk_manage_exp_ajax",
-		"access arguments" => array(
-			"om pssp bulk manage abstract"
-		),
-		"type" => MENU_CALLBACK,
-		'file' => 'bulk_approval.inc'
-	);
 	$items['powersystems/pssp/certificates'] = array(
 		'title' => 'List of Power System Simulation Certificates',
 		'description' => 'List of Power System Simulation Certificates',
@@ -352,7 +270,7 @@ function om_pssp_menu()
 		),
 		'file' => 'pdf/cert_new.inc'
 	);
-	$items['powersystems/pssp/certificates-custom'] = array(
+	/*$items['powersystems/pssp/certificates-custom'] = array(
 		'title' => 'List of Power System Simulation Custom Certificates',
 		'description' => 'List of Power System Simulation Custom Certificates',
 		'page callback' => '_list_pssp_custom_certificates',
@@ -373,7 +291,7 @@ function om_pssp_menu()
 			'generate pdf'
 		),
 		'file' => 'pdf/mentor_cert_pdf.inc'
-	);
+	);*/
 	$items["powersystems/pssp/certificates/verify"] = array(
 		"title" => "Certificate Verification",
 		"page callback" => "verify_certificates",
@@ -382,7 +300,7 @@ function om_pssp_menu()
 		),
 		'type' => MENU_CALLBACK,
 		'file' => 'pdf/verify_certificates.inc'
-	);*/
+	);
 	return $items;
 }
 /**
@@ -439,18 +357,18 @@ function om_pssp_permission()
 			'title' => t('om pssp generate abstract'),
 			'restrict access' => TRUE
 		),
-		/*"list Power System Simulation certificates" => array(
+		"list Power System Simulation certificates" => array(
 			"title" => t("list Power System Simulation certificates"),
 			"description" => t("Allows users to list Power System Simulation certificates.")
 		),
-		"list Power System Simulation custom certificates" => array(
+		/*"list Power System Simulation custom certificates" => array(
 			"title" => t("list Power System Simulation custom certificates"),
 			"description" => t("Allows users to list Power System Simulation custom certificates.")
-		),
+		),*/
 		"generate pdf" => array(
 			"title" => t("Generate pdf"),
 			"description" => t("Allows users to Generate pdf.")
-		)*/
+		)
 	);
 	// return array('om pssp create proposal', 'om pssp manage proposal', 'om pssp edit proposal', 'om pssp approve proposal', 'om pssp propose solution', 'om pssp approve code', 'om pssp bulk manage abstract', 'om pssp bulk delete code', 'om pssp upload code', 'om pssp download code', 'administer om pssp', 'om pssp generate lab');
 }
