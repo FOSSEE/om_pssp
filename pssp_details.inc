@@ -86,7 +86,7 @@ function om_pssp_progress_all()
 			'No',
 			'Power System Simulation Project',
 			'Contributor Name',
-			'Institute',
+			'University / Institute',
 			'Year'
 		);
 		$page_content .= theme('table', array(
