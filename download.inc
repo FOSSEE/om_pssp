@@ -34,6 +34,7 @@ function om_pssp_project_files() {
 	$query = db_select('om_pssp_submitted_abstracts_file');
 	$query->fields('om_pssp_submitted_abstracts_file');
 	$query->condition('proposal_id', $proposal_id);
+	$query->condition('filetype', A);
 	$result = $query->execute();
 	$om_pssp_project_files = $result->fetchObject();
 	//var_dump($om_pssp_project_files);die;
