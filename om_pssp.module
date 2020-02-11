@@ -182,6 +182,16 @@ function om_pssp_menu()
 		'type' => MENU_CALLBACK,
 		'file' => 'download.inc'
 	);
+	$items['powersystems/pssp/download/abstract-file'] = array(
+		'title' => 'Download abstract file',
+		'description' => 'Download abstract file',
+		'page callback' => 'om_pssp_project_files',
+		'access arguments' => array(
+			'om pssp download code'
+		),
+		'type' => MENU_CALLBACK,
+		'file' => 'download.inc'
+	);
 	$items['powersystems/pssp/download/file'] = array(
 		'title' => 'Code Download',
 		'description' => 'Code Download',

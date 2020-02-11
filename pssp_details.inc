@@ -5,7 +5,7 @@ function om_pssp_completed_proposals_all()
 	$query = db_select('om_pssp_proposal');
 	$query->fields('om_pssp_proposal');
 	$query->condition('approval_status', 3);
-	$query->orderBy('actual_completion_date', 'ASC');
+	$query->orderBy('actual_completion_date', 'DESC');
 	//$query->condition('is_completed', 1);
 	$result = $query->execute();
 	
@@ -28,24 +28,22 @@ function om_pssp_completed_proposals_all()
 			$query1->condition('proposal_id', $proposal_id);
 			$project_files = $query1->execute();
 			$project_abstract = $project_files->fetchObject();
-			$approval_date = date("Y", $row->actual_completion_date);
+			$completion_date = date("Y", $row->actual_completion_date);
 			$preference_rows[] = array(
 				$i,
 				l($row->project_title, "powersystems/pssp/om-pssp-run/" . $row->id),
-				l('Download', "powersystems/pssp/download/resource-file/" . $row->id),
 				$row->contributor_name,
 				$row->university,
-				$approval_date
+				$completion_date
 			);
 			$i++;
 		} //$row = $result->fetchObject()
 		$preference_header = array(
 			'No',
 			'Power System Simulation Project',
-			'Abstract File',
 			'Contributor Name',
-			'Institute',
-			'Year'
+			'University / Institute',
+			'Year of Completion'
 		);
 		$output .= theme('table', array(
 			'header' => $preference_header,
