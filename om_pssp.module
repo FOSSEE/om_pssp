@@ -1,5 +1,8 @@
 <?php
 // $Id$
+/*error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);*/
 require_once('general_deletion.inc');
 require_once('email.inc');
 /**
@@ -280,7 +283,7 @@ function om_pssp_menu()
 		),
 		'file' => 'pdf/cert_new.inc'
 	);
-	/*$items['powersystems/pssp/certificates-custom'] = array(
+	$items['powersystems/pssp/certificates-custom'] = array(
 		'title' => 'List of Power System Simulation Custom Certificates',
 		'description' => 'List of Power System Simulation Custom Certificates',
 		'page callback' => '_list_pssp_custom_certificates',
@@ -301,7 +304,7 @@ function om_pssp_menu()
 			'generate pdf'
 		),
 		'file' => 'pdf/mentor_cert_pdf.inc'
-	);*/
+	);
 	$items["powersystems/pssp/certificates/verify"] = array(
 		"title" => "Certificate Verification",
 		"page callback" => "verify_certificates",
@@ -371,10 +374,10 @@ function om_pssp_permission()
 			"title" => t("list Power System Simulation certificates"),
 			"description" => t("Allows users to list Power System Simulation certificates.")
 		),
-		/*"list Power System Simulation custom certificates" => array(
+		"list Power System Simulation custom certificates" => array(
 			"title" => t("list Power System Simulation custom certificates"),
 			"description" => t("Allows users to list Power System Simulation custom certificates.")
-		),*/
+		),
 		"generate pdf" => array(
 			"title" => t("Generate pdf"),
 			"description" => t("Allows users to Generate pdf.")

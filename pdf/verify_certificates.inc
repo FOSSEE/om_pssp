@@ -86,8 +86,8 @@ function verify_qrcode_fromdb($qr_code)
 		$page_content .= "<h4>Participation Details</h4><table><tr><td>Name</td>";
 		$page_content .= "<td>" . $data3->contributor_name . "</td></tr>";
 		$page_content .= "<tr><td>Project</td>";
-		$page_content .= "<td>OpenModelica pssping Project</td></tr>";
-		$page_content .= "<tr><td>OpenModelica pssping completed</td>";
+		$page_content .= "<td>OpenModelica Power System Simulation Project</td></tr>";
+		$page_content .= "<tr><td>OpenModelica Power System Simulation completed</td>";
 		$page_content .= "<td>" . $data3->project_title . "</td></tr>";
 		$page_content .= "<tr><td>Project Guide</td>";
 		$page_content .= "<td>" . $data3->project_guide_name . "</td></tr>";
@@ -98,8 +98,8 @@ function verify_qrcode_fromdb($qr_code)
 		$page_content .= "<h4>Participation Details</h4><table><tr><td>Name</td>";
 		$page_content .= "<td>" . $data3->contributor_name . "</td></tr>";
 		$page_content .= "<tr><td>Project</td>";
-		$page_content .= "<td>OpenModelica pssping Project</td></tr>";
-		$page_content .= "<tr><td>OpenModelica pssping completed</td>";
+		$page_content .= "<td>OpenModelica Power System Simulation Project</td></tr>";
+		$page_content .= "<tr><td>OpenModelica Power System Simulation completed</td>";
 		$page_content .= "<td>" . $data3->project_title . "</td></tr>";
 		$page_content .= "</table>";
 		}
