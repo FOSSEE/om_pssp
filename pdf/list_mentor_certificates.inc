@@ -6,7 +6,7 @@ function _list_pssp_custom_certificates()
 	$exist_id = $query_id->fetchObject();
 	if ($exist_id){
 	if ($exist_id->id) {
-		if ($exist_id->id < 3) {
+		if ($exist_id->id < 1) {
 			drupal_set_message('<strong>You need to propose a flowsheet <a href="http://dwsim.fossee.in/flowsheeting-project/proposal">Flowsheet Proposal</a></strong> or if you have already proposed then your flowsheet is under reviewing process', 'status');
 			return '';
 		} //$exist_id->id < 3
