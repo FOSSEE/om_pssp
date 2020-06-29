@@ -110,7 +110,7 @@ function generate_pdf()
 	$pdf->SetX(29);
 	$pdf->SetY(-65);
 	$pdf->Ln(13);
-	$pdf->Image($pngAbsoluteFilePath, $pdf->GetX() + 75, $pdf->GetY(), 30, 0);
+	$pdf->Image($pngAbsoluteFilePath, $pdf->GetX() + 75, $pdf->GetY(), 24, 0);
 	$filename = str_replace(' ', '-', $data3->project_guide_name) . '-OpenModelica-PSSP-Mentor-Certificate.pdf';
 	$file     = $path . '/pdf/temp_certificate/' . $proposal_id . '_' . $filename;
 	$pdf->Output($file, 'F');
