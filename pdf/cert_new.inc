@@ -112,7 +112,7 @@ function generate_pdf()
 	$pdf->SetY(80);
 	$pdf->SetX(300);
 	$pdf->Ln(30);
-	$pdf->Image($pngAbsoluteFilePath, $pdf->GetX()+70 , $pdf->GetY() + 55, 28,28, 0);
+	$pdf->Image($pngAbsoluteFilePath, $pdf->GetX()+70 , $pdf->GetY() + 55, 24,24, 0);
 	$pdf->SetFont('Times', '', 14);
 	$pdf->Ln(48);
 	$pdf->SetX(95);
