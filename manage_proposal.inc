@@ -435,6 +435,14 @@ function om_pssp_proposal_status_form($form, &$form_state)
 		drupal_goto('powersystems/pssp/manage-proposal');
 		return;
 	}
+	if ($proposal_data->contact_no == "NULL" || $proposal_data->contact_no == "")
+	{
+		$contact_no = "Not Entered";
+	} //$proposal_data->project_guide_name == NULL
+	else
+	{
+		$contact_no = $proposal_data->contact_no;
+	}
 	$form['contributor_name'] = array(
 		'#type' => 'item',
 		'#markup' => l($proposal_data->name_title . ' ' . $proposal_data->contributor_name, 'user/' . $proposal_data->uid),
