@@ -446,6 +446,11 @@ function om_pssp_proposal_status_form($form, &$form_state)
 		'#markup' => user_load($proposal_data->uid)->mail,
 		'#title' => t('Email')
 	);
+	$form['contributor_contact_no'] = array(
+		'#title' => t('Contact No.'),
+		'#type' => 'item',
+		'#markup' => $contact_no,
+	);
 	/*$form['month_year_of_degree'] = array(
 		'#type' => 'date_popup',
 		'#title' => t('Month and year of award of degree'),
