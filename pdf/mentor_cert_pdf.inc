@@ -35,7 +35,7 @@ function generate_pdf()
 	} //!$pdf
 	$pdf->AddPage();
 	$image_bg = $mpath . "/pdf/images/bg_cert_mentor.png";
-	$pdf->Image($image_bg, 0, 0, $pdf->w, $pdf->h);
+	$pdf->Image($image_bg, 0, 0, $pdf->GetPageWidth(), $pdf->GetPageHeight());
 	$pdf->SetMargins(18, 1, 18);
 	$path   = drupal_get_path('module', 'om_pssp');
 	$pdf->Ln(43);
@@ -45,7 +45,7 @@ function generate_pdf()
 	$pdf->Ln(-6);
 	$pdf->SetFont('Times', 'BI', 16);
 	$pdf->SetTextColor(13, 5, 130);
-	$pdf->Cell(240, 8, $data3->project_guide_name, '0', '1', 'C');
+	$pdf->Cell(240, 8, utf8_decode($data3->project_guide_name), '0', '1', 'C');
 	$pdf->Ln(0);
 	$pdf->SetFont('Times', 'I', 12);
 	if (strtolower($data3->branch) != "others") {
@@ -54,20 +54,20 @@ function generate_pdf()
 		$pdf->Cell(240, 8, 'from', '0', '1', 'C');
 		$pdf->Ln(0);
 		$pdf->SetFont('Times','BI',16);
-		$pdf->Cell(240, 8, $data3->project_guide_university, '0','1','C');
+		$pdf->Cell(240, 8, utf8_decode($data3->project_guide_university), '0','1','C');
 		$pdf->Ln(0);
 		$pdf->SetFont('Times', 'I', 12);
 		$pdf->Cell(240, 8, 'who has mentored', '0', '1', 'C');
 		$pdf->Ln(0);
 		$pdf->SetFont('Times', 'BI', 16);
-		$pdf->Cell(240, 8, $data3->contributor_name, '0', '1', 'C');
+		$pdf->Cell(240, 8, utf8_decode($data3->contributor_name), '0', '1', 'C');
 		$pdf->Ln(0);
 		$pdf->SetFont('Times', 'I', 12);
 		$pdf->Cell(240, 8, 'for successfully completing internship under the Power System Simulation Project. The intern(s) has created a Simulation titled', '0', '1', 'C');
 		$pdf->Ln(0);
 		$pdf->SetFont('Times', 'BI', 16);
 		$pdf->SetTextColor(13, 5, 130);
-		$pdf->Cell(240, 8, $data3->project_title, '0', '1', 'C');
+		$pdf->Cell(240, 8, utf8_decode($data3->project_title), '0', '1', 'C');
 		$pdf->SetTextColor(13, 5, 130);
 		$pdf->Ln(0);
 		$pdf->SetFont('Times', 'I', 12);
@@ -114,18 +114,26 @@ function generate_pdf()
 	$filename = str_replace(' ', '-', $data3->project_guide_name) . '-OpenModelica-PSSP-Mentor-Certificate.pdf';
 	$file     = $path . '/pdf/temp_certificate/' . $proposal_id . '_' . $filename;
 	$pdf->Output($file, 'F');
-	header("Content-Type: application/octet-stream");
-	header("Content-Disposition: attachment; filename=" . $filename);
-	header("Content-Type: application/octet-stream");
-	header("Content-Type: application/download");
+	ob_clean();
+	header("Pragma: public");
+	header("Expires: 0");
+	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	header("Cache-Control: public");
 	header("Content-Description: File Transfer");
+	header("Content-Type: application/pdf");
+	header("Content-Disposition: attachment; filename=" . $filename);
 	header("Content-Length: " . filesize($file));
+	header("Content-Transfer-Encoding: binary");
+	header("Expires: 0");
+	header("Pragma: no-cache");
 	flush();
 	$fp = fopen($file, "r");
 	while (!feof($fp)) {
-		echo fread($fp, 65536);
+		echo fread($fp, filesize($file));
 		flush();
 	} //!feof($fp)
+	ob_end_flush();
+	ob_clean();
 	fclose($fp);
 	unlink($file);
 	//drupal_goto('flowsheeting-project/certificate');
