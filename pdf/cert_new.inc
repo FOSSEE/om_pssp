@@ -42,7 +42,7 @@ function generate_pdf()
 	} //!$pdf
 	$pdf->AddPage();
 	$image_bg = $mpath . "/pdf/images/bg_cert.png";
-	$pdf->Image($image_bg, 0, 0, $pdf->w, $pdf->h);
+	$pdf->Image($image_bg, 0, 0, $pdf->GetPageWidth(), $pdf->GetPageHeight());
 	$pdf->SetMargins(18, 1, 18);
 	$path   = drupal_get_path('module', 'om_pssp');
 	$pdf->Ln(50);
@@ -53,18 +53,18 @@ function generate_pdf()
 	$pdf->SetFont('Times', 'I', 16);
 	$pdf->SetTextColor(37, 22, 247);
 	$contributor_name = WordWrap($data3->contributor_name,70);
-	$pdf->MultiCell(240, 8, $data3->name_title . '. ' . $contributor_name, '0', 'C');
+	$pdf->MultiCell(240, 8, $data3->name_title . '. ' . utf8_decode($contributor_name), '0', 'C');
 	$pdf->Ln(0);
 	$pdf->SetFont('Times', '', 14);
 	$title = WordWrap($data3->project_title,160);
 	$university = WordWrap('from ' . $data3->university . ' has successfully contributed under the ', 160);
 	$pdf->SetTextColor(0, 0, 0);
-	$pdf->MultiCell(240, 8, $university . 'OpenModelica Power Systems Simulation Project.', '0','C');
+	$pdf->MultiCell(240, 8, utf8_decode($university) . 'OpenModelica Power Systems Simulation Project.', '0','C');
 	$pdf->Ln(0);
 	$pdf->Cell(240, 8, 'He/She has created the following simulation', '0', '1', 'C');
 	$pdf->SetTextColor(37, 22, 247);
 	$pdf->SetFont('Times','I',16);
-	$pdf->MultiCell(240, 8, $title, '0', 'C');
+	$pdf->MultiCell(240, 8, utf8_decode($title), '0', 'C');
 	$pdf->SetTextColor(0, 0, 0);
 	$pdf->SetFont('Times','',14);
 	$pdf->Cell(240, 8, 'using OpenModelica. The code is available at ', '0', '', 'C');
@@ -125,18 +125,26 @@ function generate_pdf()
 	$filename = str_replace(' ', '-', $data3->contributor_name) . '-OpenModelica-PSSP-Certificate.pdf';
 	$file     = $path . '/pdf/temp_certificate/' . $proposal_id . '_' . $filename;
 	$pdf->Output($file, 'F');
-	header("Content-Type: application/octet-stream");
-	header("Content-Disposition: attachment; filename=" . $filename);
-	header("Content-Type: application/octet-stream");
-	header("Content-Type: application/download");
+	ob_clean();
+	header("Pragma: public");
+	header("Expires: 0");
+	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	header("Cache-Control: public");
 	header("Content-Description: File Transfer");
+	header("Content-Type: application/pdf");
+	header("Content-Disposition: attachment; filename=" . $filename);
 	header("Content-Length: " . filesize($file));
+	header("Content-Transfer-Encoding: binary");
+	header("Expires: 0");
+	header("Pragma: no-cache");
 	flush();
 	$fp = fopen($file, "r");
 	while (!feof($fp)) {
-		echo fread($fp, 65536);
+		echo fread($fp, filesize($file));
 		flush();
 	} //!feof($fp)
+	ob_end_flush();
+	ob_clean();
 	fclose($fp);
 	unlink($file);
 	//drupal_goto('flowsheeting-project/certificate');
