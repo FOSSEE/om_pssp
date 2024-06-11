@@ -60,6 +60,7 @@ function om_pssp_progress_all()
 	$query->fields('om_pssp_proposal');
 	$query->condition('approval_status', 1);
 	$query->condition('is_completed', 0);
+	$query->orderBy('approval_date', DESC);
 	$result = $query->execute();
 	if ($result->rowCount() == 0)
 	{
